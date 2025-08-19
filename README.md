@@ -1,7 +1,7 @@
 # App-frontend
 Application ProxiMore pour smartphone
 
-L'application utilise l'API hébergé en ligne pour les echanges avec la base de donnée.
+L'application utilise l'API hébergée en ligne pour les echanges avec la base de données.
 
 ## Installer l'application sur son smartphone 
 1. Dans un terminal lancer les commandes suivantes :
