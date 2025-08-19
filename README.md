@@ -30,7 +30,7 @@ Mot de passe : password
 ```
 
 ## Présentation de l'application
-"Map" affiche une map pour rechercher les annonces autour de chez soit grâce à des points (Fonctionnalité en cours de développement)
+"Map" affiche une map pour rechercher les annonces autour de chez soi grâce à des points (Fonctionnalité en cours de développement)
 
 "Messagerie" affiche une liste de chats. En cliquant sur un chat vous pouvez envoyer des messages à l'utilisateur destinataire.
 
