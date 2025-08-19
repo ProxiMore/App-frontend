@@ -8,7 +8,7 @@ class Post {
   final DateTime created_at;
   final DateTime? updated_at;
   final String? mediaUri;
-  final String? tags; // Champ pour gérer les tags.
+  final String? tags; // Paramètre optionnel pour les tags.
 
   Post({
     required this.title,
@@ -18,7 +18,7 @@ class Post {
     required this.created_at,
     this.updated_at,
     this.mediaUri,
-    this.tags, // Paramètre optionnel pour les tags.
+    this.tags,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
@@ -29,7 +29,11 @@ class Post {
       user: json['user'] != null
           ? User.fromJson(json['user'])
           : User(
-              username: '', profilePictureUri: '', bio: null, profileImage: ''),
+              id: '',
+              username: '',
+              profilePictureUri: '',
+              bio: null,
+              profileImage: ''),
       created_at: DateTime.parse(json['created_at']),
       updated_at: json['updated_at'] != null
           ? DateTime.parse(json['updated_at'])

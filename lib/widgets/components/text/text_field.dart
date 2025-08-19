@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:proximore/utils/constants.dart';
 
 class UITextField extends StatefulWidget {
@@ -52,6 +53,7 @@ class _UITextFieldState extends State<UITextField> {
     return TextFormField(
       controller: widget.controller,
       textCapitalization: TextCapitalization.none,
+      keyboardType: TextInputType.text,
       focusNode: myFocusNode,
       decoration: InputDecoration(
         filled: true,

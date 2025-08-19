@@ -5,6 +5,8 @@ import 'package:proximore/utils/constants.dart';
 import 'package:proximore/widgets/components/buttons/button.dart';
 import 'package:proximore/widgets/components/text/text_field.dart';
 
+import 'package:proximore/data_source/auth_service.dart';
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -13,6 +15,24 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> with WidgetsBindingObserver {
+  final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> handleRegister() async {
+    final nom = _nomController.text;
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    final success = await AuthService().register(nom, email, password);
+    if (success) {
+      print('Logged in! User ID: ${AuthService().userId}');
+      context.go('/');
+    } else {
+      print('Login failed');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -74,7 +94,28 @@ class _SignUpPageState extends State<SignUpPage> with WidgetsBindingObserver {
                           child: SizedBox(
                             height: (MediaQuery.of(context).size.height * 0.05),
                             child: UITextField(
-                              labelText: "adresse email",
+                              labelText: "Nom",
+                              controller: _nomController,
+                              labelColor: Constants.secondaryOrange,
+                              labelFloating: false,
+                              fillColor: Constants.white,
+                              focusedBorderColor: Constants.secondaryOrange,
+                              enabledBorderColor: Constants.white,
+                              textColor: Constants.secondaryOrange,
+                              onFieldSubmitted: (value) {},
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height:
+                                (MediaQuery.of(context).size.height * 0.02)),
+                        FractionallySizedBox(
+                          widthFactor: 0.75,
+                          child: SizedBox(
+                            height: (MediaQuery.of(context).size.height * 0.05),
+                            child: UITextField(
+                              labelText: "Adresse email",
+                              controller: _emailController,
                               labelColor: Constants.secondaryOrange,
                               labelFloating: false,
                               fillColor: Constants.white,
@@ -94,6 +135,7 @@ class _SignUpPageState extends State<SignUpPage> with WidgetsBindingObserver {
                             height: (MediaQuery.of(context).size.height * 0.05),
                             child: UITextField(
                               labelText: "Mot de passe",
+                              controller: _passwordController,
                               labelColor: Constants.secondaryOrange,
                               labelFloating: false,
                               fillColor: Constants.white,
@@ -101,28 +143,8 @@ class _SignUpPageState extends State<SignUpPage> with WidgetsBindingObserver {
                               enabledBorderColor: Constants.white,
                               textColor: Constants.secondaryOrange,
                               onFieldSubmitted: (value) {
-                                print("Mot de passe soumis: $value");
-                              },
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                            height:
-                                (MediaQuery.of(context).size.height * 0.02)),
-                        FractionallySizedBox(
-                          widthFactor: 0.75,
-                          child: SizedBox(
-                            height: (MediaQuery.of(context).size.height * 0.05),
-                            child: UITextField(
-                              labelText: "Confirmation mot de passe",
-                              labelColor: Constants.secondaryOrange,
-                              labelFloating: false,
-                              fillColor: Constants.white,
-                              focusedBorderColor: Constants.secondaryOrange,
-                              enabledBorderColor: Constants.white,
-                              textColor: Constants.secondaryOrange,
-                              onFieldSubmitted: (value) {
-                                print("Mot de passe soumis: $value");
+                                handleRegister();
+                                print("Mot de passe soumis");
                               },
                             ),
                           ),
@@ -145,7 +167,6 @@ class _SignUpPageState extends State<SignUpPage> with WidgetsBindingObserver {
                                       textColor: Constants.white,
                                       onPressed: () {
                                         context.go('/connexion');
-                                        // ignore: avoid_print
                                         print('Action du boutton ANNULER');
                                       },
                                     ),
@@ -160,8 +181,7 @@ class _SignUpPageState extends State<SignUpPage> with WidgetsBindingObserver {
                                       text: 'VALIDER',
                                       textColor: Constants.secondaryOrange,
                                       onPressed: () {
-                                        context.go('/');
-                                        // ignore: avoid_print
+                                        handleRegister();
                                         print('Action du boutton VALIDER');
                                       },
                                     ),

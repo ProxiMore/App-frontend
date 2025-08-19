@@ -2,17 +2,16 @@ import 'package:go_router/go_router.dart';
 import 'package:proximore/widgets/pages/connexion_page.dart';
 import 'package:proximore/widgets/pages/home_page.dart';
 import 'package:proximore/widgets/pages/map_page.dart';
-import 'package:proximore/widgets/pages/play_page.dart';
+import 'package:proximore/widgets/pages/chat_page.dart';
 import 'package:proximore/widgets/pages/messagerie_page.dart';
 import 'package:proximore/widgets/pages/settings_page.dart';
 import 'package:proximore/widgets/components/bars/navBarWidget.dart';
 import 'package:proximore/widgets/pages/new_post_page.dart';
 import 'package:proximore/widgets/pages/profil_page.dart';
-import 'package:proximore/widgets/pages/new_text_page.dart';
 import 'package:proximore/widgets/pages/sign_in_page.dart';
 import 'package:proximore/widgets/pages/sign_up_page.dart';
 
-import '../models/Album.dart';
+import '../models/Chat.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/connexion',
@@ -78,16 +77,10 @@ final GoRouter router = GoRouter(
           },
         ),
         GoRoute(
-          path: '/new-text',
+          path: '/chat_page',
           builder: (context, state) {
-            return NewTextPage();
-          },
-        ),
-        GoRoute(
-          path: '/play_page',
-          builder: (context, state) {
-            final album = state.extra as Album?; // Récupérez l'objet Album
-            return PlayPage(album: album); // Passez l'objet Album à PlayPage
+            final chat = state.extra as Chat; // Récupérez l'objet Album
+            return ChatPage(chat: chat); // Passez l'objet Album à PlayPage
           },
         ),
       ],

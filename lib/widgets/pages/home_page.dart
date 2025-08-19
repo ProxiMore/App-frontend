@@ -5,7 +5,6 @@ import 'package:proximore/widgets/components/subscription/subMenuWidget.dart';
 import 'package:proximore/utils/constants.dart';
 import 'package:proximore/models/Post.dart';
 import 'package:proximore/models/User.dart';
-import 'package:proximore/data_source/data.dart';
 
 import 'package:proximore/widgets/components/search/searchTextFieldWidget.dart';
 import 'dart:convert';
@@ -39,7 +38,8 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         posts = jsonList.map((json) => Post.fromJson(json)).toList();
       });
-      print('Posts fetched: ${response.body}');
+      print('Posts fetched !');
+      // print('Posts fetched: ${response.body}');
     } else {
       print('Failed to fetch posts: ${response.body}');
     }

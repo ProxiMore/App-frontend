@@ -5,6 +5,11 @@ import 'package:proximore/widgets/components/buttons/icon_button.dart';
 import 'package:proximore/models/Post.dart';
 
 import '../buttons/icon_button_toggle.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:proximore/data_source/auth_service.dart';
+import 'package:proximore/models/Chat.dart';
+import 'package:go_router/go_router.dart';
 
 class UIPostCard extends StatelessWidget {
   final Post post;
@@ -16,6 +21,31 @@ class UIPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Chat> chats = [];
+
+    Future<void> handleNewChat() async {
+      final url = Uri.parse('https://app-backend-jhpm.onrender.com/api/chats');
+
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          "name": "Discussion avec ${post.user.username}",
+          "user_id": [AuthService().userId.toString(), post.user.id],
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        print('Post created: ${response.body}');
+
+        final List<dynamic> jsonList = jsonDecode(response.body);
+        chats = jsonList.map((json) => Chat.fromJson(json)).toList();
+        context.go('/chat_page', extra: chats[0]);
+      } else {
+        print('Failed to create post: ${response.body}');
+      }
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 30,
@@ -45,7 +75,7 @@ class UIPostCard extends StatelessWidget {
             ),
           ),
           Text(
-            'Nom : ${post.user.username}', // ?? '',
+            'Nom : ${post.user.username}',
             style: TextStyle(
               color: Constants.darkest,
               fontFamily: 'Paralucent',
@@ -53,7 +83,7 @@ class UIPostCard extends StatelessWidget {
             ),
           ),
           Text(
-            'Adresse : ${post.address}', // ?? '',
+            'Adresse : ${post.address}',
             style: TextStyle(
               color: Constants.darkest,
               fontFamily: 'Paralucent',
@@ -88,7 +118,10 @@ class UIPostCard extends StatelessWidget {
                   icon: Constants.messageIcon,
                   color: Constants.primaryBlue,
                   size: 20,
-                  callback: () {},
+                  callback: () {
+                    print("--- AAAAAAAAAAAAAAAA ---");
+                    handleNewChat();
+                  },
                 ),
                 UIIconButton(
                   icon: Constants.replayIcon,

@@ -26,4 +26,23 @@ class AuthService {
 
     return false;
   }
+
+  Future<bool> register(String nom, String email, String password) async {
+    final url =
+        Uri.parse('https://app-backend-jhpm.onrender.com/api/auth/register');
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body:
+          jsonEncode({'username': email, 'email': email, 'password': password}),
+    );
+
+    if (response.statusCode == 201) {
+      login(email, password);
+      return true;
+    }
+
+    return false;
+  }
 }

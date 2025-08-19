@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:proximore/widgets/components/chat/chatListItem.dart';
 import 'package:proximore/widgets/components/search/searchTextFieldWidget.dart';
 import 'package:proximore/widgets/components/user/usersListItem.dart';
+// import '../../data_source/data.dart';
 
-import '../../data_source/data.dart';
 import 'package:proximore/models/Chat.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -17,30 +17,11 @@ class MessageriePage extends StatefulWidget {
 }
 
 class _MessageriePageState extends State<MessageriePage> {
-  final List<Map<String, String>> friendsData = [
-    {
-      'imagePath': 'assets/images/profile9.jpg',
-      'name': '@Jazz_Sophie',
-      'prenom': 'Sophie Jascinta',
-    },
-    {
-      'imagePath': 'assets/images/profile11.jpg',
-      'name': '@Reggae_Tom',
-      'prenom': 'Thomas Reynier',
-    },
-    {
-      'imagePath': 'assets/images/profile5.png',
-      'name': '@Acoustic_Lisa',
-      'prenom': 'Lisa Ashton',
-    },
-  ];
-
   List<Chat> chats = [];
 
   Future<void> handleGetChats(String? search) async {
-    final url = (search != null && search.isNotEmpty
-        ? Uri.parse('https://app-backend-jhpm.onrender.com/api/chats/$search')
-        : Uri.parse('https://app-backend-jhpm.onrender.com/api/chats'));
+    final url = Uri.parse(
+        'https://app-backend-jhpm.onrender.com/api/users/userChats/${AuthService().userId}');
 
     final response = await http.get(
       url,
@@ -52,6 +33,7 @@ class _MessageriePageState extends State<MessageriePage> {
       setState(() {
         chats = jsonList.map((json) => Chat.fromJson(json)).toList();
       });
+      // print('Chats fetched !');
       print('Chats fetched: ${response.body}');
     } else {
       print('Failed to fetch posts: ${response.body}');

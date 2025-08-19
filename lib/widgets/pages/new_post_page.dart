@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:proximore/data_source/data.dart';
 import 'package:proximore/models/Post.dart';
 import 'package:proximore/models/User.dart';
 import 'package:proximore/utils/constants.dart';

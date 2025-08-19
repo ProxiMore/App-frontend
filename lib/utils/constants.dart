@@ -16,11 +16,11 @@ class Constants {
   static const Color post = Color(0xFFDEE3D5);
 
   //PRIMARY and SECONDARY COLORS
-  static const Color primaryBlue = Color(0xFF0024A6);
+  static const Color primaryBlue = Color(0xFF6f9dca);
   static const Color primaryBeige = Color(0xFFFFFBE1);
   static const Color secondaryOrange = Color(0xFFFFB000);
   static const Color secondaryRed = Color(0xFFEA4D24);
-  static const Color secondaryGreen = Color(0xFF4CAF50);
+  static const Color secondaryGreen = Color(0xFFb4e5a2);
 
   // FONT FAMILIES
   static const String primaryFont = 'Staatliches';

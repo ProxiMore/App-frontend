@@ -16,17 +16,6 @@ class ConnexionPage extends StatefulWidget {
 
 class _ConnexionPageState extends State<ConnexionPage>
     with WidgetsBindingObserver {
-  // bool isEmailExist = true;
-
-  // void handleTextSubmission(String value) {
-  //   print("Parent a reçu le texte : $value");
-  //   if (isEmailExist) {
-  //     context.go('/signin');
-  //   } else {
-  //     context.go('/signup');
-  //   }
-  // }
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -154,8 +143,8 @@ class _ConnexionPageState extends State<ConnexionPage>
                               enabledBorderColor: Constants.white,
                               textColor: Constants.secondaryOrange,
                               onFieldSubmitted: (value) {
-                                // ignore: avoid_print
-                                print("Mot de passe soumis: $value");
+                                handleLogin();
+                                print("Mot de passe soumis");
                               },
                             ),
                           ),
@@ -175,9 +164,7 @@ class _ConnexionPageState extends State<ConnexionPage>
                                       text: 'VALIDER',
                                       textColor: Constants.secondaryOrange,
                                       onPressed: () {
-                                        // context.go('/');
                                         handleLogin();
-                                        // ignore: avoid_print
                                         print('Action du boutton VALIDER');
                                       },
                                     ),
